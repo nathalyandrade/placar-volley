@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="PlacarVolley.Api/PlacarVolley.Api.csproj" />
+  <Project Path="PlacarVolley.Tests/PlacarVolley.Tests.csproj" />
+</Solution>

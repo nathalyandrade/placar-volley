@@ -1,0 +1,194 @@
+:root {
+  --azul: #1d5fd1;
+  --azul-escuro: #123f8f;
+  --vermelho: #d62839;
+  --vermelho-escuro: #8f1a26;
+  --texto: #ffffff;
+  --fundo: #111111;
+
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--texto);
+  background: var(--fundo);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  background: var(--fundo);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Tela dividida: em pé = cima/baixo, deitado = esquerda/direita */
+.placar {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (orientation: landscape) {
+  .placar {
+    flex-direction: row;
+  }
+}
+
+.time {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  min-height: 0;
+  transition: filter 0.2s;
+}
+
+.time-azul {
+  background: var(--azul);
+}
+
+.time-vermelho {
+  background: var(--vermelho);
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+}
+
+.nome {
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.selo {
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.venceu .selo {
+  background: #ffd23f;
+}
+
+.pontos {
+  font-size: clamp(5rem, 22vh, 14rem);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (orientation: landscape) {
+  .pontos {
+    font-size: clamp(5rem, 45vh, 16rem);
+  }
+}
+
+.botoes {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.botoes button {
+  height: 72px;
+  border-radius: 18px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.menos {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.mais {
+  flex: 2.5;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.mais:active:not(:disabled),
+.menos:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+/* Partida encerrada: destaca o vencedor e escurece o perdedor */
+.placar:has(.venceu) .time:not(.venceu) {
+  filter: brightness(0.45);
+}
+
+.centro {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.zerar {
+  pointer-events: auto;
+  background: var(--fundo);
+  border: 3px solid #fff;
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.zerar.confirmando {
+  background: #ffd23f;
+  color: #111;
+  border-color: #111;
+}
+
+
+/* Espaço para o botão "Zerar" na divisória entre os times */
+@media (orientation: portrait) {
+  .time-azul {
+    padding-bottom: 32px;
+  }
+
+  .time-vermelho {
+    padding-top: 32px;
+  }
+}
